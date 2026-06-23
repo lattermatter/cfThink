@@ -1,0 +1,26 @@
+services:
+  frontend:
+    # not necessary if we specified a build
+    # image: node:24-slim
+    # find the specs for the actual build (frontend folder in cd)
+    build: ./frontend
+    # port. add 127.0.0.1 for only me to access this port (current computer)
+    ports:
+      - 5173:5173
+    # map the front end directory for HMR
+    volumes:
+      - ./frontend:/usr/local/frontend
+      - /usr/local/frontend/node_modules
+    # ensure no changes in current directory affect the node_modules
+    # networks: all containers live in a shared private network
+    # in production, have only frontend access backend.
+  backend:
+    # find the specs for the actual build (backend folder in cd)
+    build: ./backend
+    # port. add 127.0.0.1 for only me to access this port (current computer)
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend:/usr/local/backend
+    # networks: all containers live in a shared private network
+    # in production, have only frontend access backend.

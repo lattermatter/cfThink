@@ -3,7 +3,7 @@ import './App.css'
 
 const processCountInput = (value: number): number => {
   if (value < 0) value = 1
-  if (value > 10) value = 10
+  if (value > 100) value = 10
   if (!Number.isInteger(value)) value = Math.floor(value)
   return value
 }
