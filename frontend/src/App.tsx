@@ -1,48 +1,65 @@
 import { useState } from 'react'
 import './App.css'
 
-const cntMod = (cnt: number, base: number) => {
-  if (cnt === 1) {
-    return base
-  }
-  else if (cnt&1) return 3*cnt + 1
-  else return cnt/2
-};
+const processCountInput = (value: number): number => {
+  if (value < 0) value = 1
+  if (value > 10) value = 10
+  if (!Number.isInteger(value)) value = Math.floor(value)
+  return value
+}
+
+const outputString = (str: string, val: number): string => {
+  let outv: string = '';
+  for (let i = 0; i < val; i++)
+    outv += (str);
+
+  return outv;
+}
 
 function App() {
-  const [base, setBase] = useState(1)
-  const [count, setCount] = useState(1)
-  const [seq, setSeq] = useState("")
+  const [userString, setUserString] = useState("")
+  const [userCount, setUserCount] = useState(1)
+  const [displayString, setDisplayString] = useState("");
 
   return (
     <>
-      <section id="center">
+      <section className="container">
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
+          <h1>Frontend-Backend Contact</h1>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => {
-            if (count === 1) {setBase(base => base + 1); setSeq(seq => seq + "\n");}
-            setCount(count => cntMod(count, base));
-            setSeq(seq => seq + " " + count);
-            console.log(count);
-          }}
-        >
-          Count is {count}
-        </button>
+        <div className="sameline">
+          <p>Input string:</p> 
+          <input 
+            value={userString}
+            onChange={(e) => setUserString(e.target.value)}
+          />
+        </div>        
+        <div className="sameline">
+          <p>Input number:</p> 
+          <input type="number"
+            value={userCount}
+            onChange={(e) => setUserCount(processCountInput(e.target.valueAsNumber))}
+          />
+        </div>
 
-          <h2>
-          Sequence generated:
-          </h2>
-          <p style={{ whiteSpace: "pre-line" }}>
-            {seq}
-          </p>
+        <div>
+          <button
+            type="button"
+            className="submit"
+            onClick={() => {
+              setDisplayString(outputString(userString, userCount))
+              console.log("here")
+            }}
+          >
+            Submit
+          </button>
+        </div>
 
+        <div>
+            <p>Output string:</p>
+            {displayString}
+        </div>
+        
       </section>
     </>
   )
