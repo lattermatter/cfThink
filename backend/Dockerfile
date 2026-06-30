@@ -18,6 +18,6 @@ EXPOSE 8080
 # USER app
 
 # host uvicorn app, listens at port 080
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
 # main in root
 # non list: runs within a shell. list: runs as the primary process (most priority)
